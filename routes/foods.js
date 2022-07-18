@@ -8,11 +8,42 @@ function HandleError(response, reason, message, code){
 }
 
 router.get('/', (request, response) => {
-    console.log('GET Received');
-    response.send('GET Received Success');
-})
+    /*
+    console.log('GET received');
+    response.send('GET received successful');
+    */
+    FoodSchema.find().exec((error, food) => {
+        if (error) {
+            HandleError(response, "error retrieving data", "get failed", 500);
+        } else {
+            response.send(food);
+        }
+    });
+});
 
 router.post('/', (request, response) => {
-    console.log('POST Received');
-    response.send('POST Received Success');
-})
+    /*
+    console.log('POST received');
+    response.send('POST received successful');
+    */
+    
+    const foodJSON = request.body;
+    if (!foodJSON.name || !foodJSON.color || !foodJSON.calories){
+        HandleError(response, "missing information", "post data missing", 500);
+    } else {
+        food = new FoodSchema({
+            name: foodJSON.name,
+            color: foodJSON.color,
+            calories: foodJSON.calories || 0
+        });
+        food.save((error) => {
+            if (error){
+                response.send({"error": error});
+            } else {
+                response.send({"id": food.id});
+            }
+    });
+}
+});
+
+module.exports = router;

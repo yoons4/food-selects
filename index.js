@@ -11,6 +11,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/api/foods', foodsRouter);
 
-app.listen(8001, () => {
-    console.log('Listening on 8001')
+app.listen(8002, () => {
+    console.log('Listening on 8002')
 })
