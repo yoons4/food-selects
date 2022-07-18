@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const url = 'mongodb://localhost/foods';
+const url = 'mongodb://foods-users:complex@node10659-foodget.us.reclaim.cloud/foods';
 
 mongoose.connect(url, {useUnifiedTopology: true, useNewUrlParser: true});
 const db = mongoose.connection;
